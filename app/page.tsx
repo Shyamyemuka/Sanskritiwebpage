@@ -185,7 +185,7 @@ export default function Home() {
 
       <main className="flex-1 relative z-10">
         {/* ────────── Hero Section ────────── */}
-        <section className="relative overflow-hidden pt-20 pb-24 md:pt-32 md:pb-40">
+        <section className="relative overflow-hidden pt-8 pb-16 md:pt-12 md:pb-24">
           <div className="absolute top-0 right-0 -z-10 w-1/2 h-full opacity-10 blur-3xl bg-primary" />
           <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -232,12 +232,19 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              className="relative"
+              className="relative flex items-center justify-center"
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}>
-              <div className="aspect-square rounded-3xl border border-primary/10">
-                {/* Blank area - no image */}
+              <div className="relative w-full h-full min-h-[400px] md:min-h-[500px] lg:min-h-[600px] flex items-center justify-center">
+                <Image
+                  src="/culturalmascotstransparent.png"
+                  alt="Cultural Mascot"
+                  width={800}
+                  height={800}
+                  className="w-full h-auto max-w-full object-contain drop-shadow-2xl"
+                  priority
+                />
               </div>
             </motion.div>
           </div>
