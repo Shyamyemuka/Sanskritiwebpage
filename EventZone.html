@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#b7860b",
+                        "background-light": "#fcecd1",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #483e23;
+            border-radius: 10px;
+        }
+        /* Mega menu specific styles */
+        .mega-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            z-index: 50;
+        }
+        .group:hover .mega-menu {
+            display: block;
+        }
+
+        /* Tab Transitions */
+        .tab-content {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-out;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tab-content.hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-[#fcecd1] text-[#221d10] antialiased min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-primary/20 bg-[#fcecd1] px-4 lg:px-20 py-3">
+<div class="max-w-7xl mx-auto flex items-center justify-between gap-8">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">account_balance</span>
+<h2 class="text-slate-900 text-xl font-extrabold tracking-tight">The Sanskriti Forum</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-primary text-sm font-semibold border-b-2 border-primary pb-1" href="#">Events</a>
+<a class="text-slate-600 hover:text-primary transition-colors text-sm font-medium" href="#">Gallery</a>
+<a class="text-slate-600 hover:text-primary transition-colors text-sm font-medium" href="javascript:void(0)" onclick="switchTab('past-highlights')">Winners</a>
+<a class="text-slate-600 hover:text-primary transition-colors text-sm font-medium" href="#">About</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<div class="relative hidden sm:block w-full max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-xl">search</span>
+<input class="w-full bg-primary/5 border border-primary/20 rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/50 placeholder:text-primary/50 text-slate-900" placeholder="Search events..." type="text"/>
+</div>
+<button class="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary/20 border-2 border-primary overflow-hidden">
+<img alt="User profile avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCY5iDHSz42MxCzbTG9U7xnmSBRpjNLaZa2gcl6hvXP9DRyjK4LgDNZag8dAQ37zerJ2FMdkXSkNrZFcGIKqzaW72CYwcED82AsLjjJgOjEx525dkWhIKmr0UIfQttLMeKLL9h_am_X6cOHCxYXeXPsm4hU9TByrE_OeBibquy7j5sE363kgKbD2GIbJod59jyxDqyCr-UElJIzOgBdWGsA5yBK6KRK51m69Pe-lWGZxI9AdLWgHoX9qp85MUaWTRMnONA8lZru-7F"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 lg:px-20 py-8">
+<!-- Featured Section -->
+<section class="mb-12">
+<div class="relative w-full rounded-xl overflow-hidden min-h-[320px] flex flex-col justify-end p-8 bg-slate-900">
+<div class="absolute inset-0 opacity-60">
+<img alt="Vibrant Indian cultural festival with colorful decorations" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzAnWmzC27aKZExz2NJnNQ4y_Avn7y6PqjFyOJWCBFPTyYzcBEXIi4c1ZhKoTTd8b5cFyAsKuMRc9TWueNVDtgJJeRUowEu9uN68brYSaTv4lrQ7GtjLr6Ej0vRjzDEUy5nsXVzR2eR6mnCULXR8YoNB6YpL6UX2f-pK7nHDc-lFQ79HROT0WkbZHY2pSo1k_Szoz6lW4IZUwQ8vczZCVHNPSXnN3P3DTuKs_OmZaIe84loDmcUizAFOY4BO8pqODIlX6jPwSfd96Z"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"></div>
+<div class="relative z-10 space-y-2">
+<span class="bg-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-white">Featured Collection</span>
+<h1 class="text-white text-4xl md:text-5xl font-extrabold tracking-tight">Events &amp; Competitions</h1>
+<p class="text-slate-300 max-w-2xl text-lg">Celebrating the timeless beauty of Indian heritage through music, dance, and fine arts.</p>
+</div>
+</div>
+</section>
+<!-- Tabs Navigation -->
+<div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-primary/10 pb-0 relative">
+<div class="flex gap-6 overflow-x-auto custom-scrollbar">
+<!-- Upcoming Competitions Tab Button (Active) -->
+<!-- Club Events Tab Button with Mega Menu -->
+<div class="relative group">
+<button class="text-slate-500 hover:text-primary font-medium pb-4 transition-all border-b-2 border-transparent whitespace-nowrap" id="tab-club-btn" onclick="switchTab('club-events')">Club Events</button>
+<!-- Mega Menu Container -->
+<div class="mega-menu pt-1 w-full md:w-[600px]">
+<div class="bg-[#fcecd1] border border-primary/30 shadow-2xl rounded-xl p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div>
+<h4 class="text-primary font-extrabold uppercase tracking-wider text-[10px] mb-3 border-b border-primary/20 pb-1">Literary</h4>
+<ul class="space-y-2">
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">history_edu</span> Debate</a></li>
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">record_voice_over</span> Declamation</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-primary font-extrabold uppercase tracking-wider text-[10px] mb-3 border-b border-primary/20 pb-1">Performing Arts</h4>
+<ul class="space-y-2">
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">theater_comedy</span> Dance</a></li>
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">mic_external_on</span> Singing</a></li>
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">library_music</span> Music</a></li>
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">masks</span> Drama</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-primary font-extrabold uppercase tracking-wider text-[10px] mb-3 border-b border-primary/20 pb-1">Creative Arts</h4>
+<ul class="space-y-2">
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">palette</span> Drawing</a></li>
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">grid_on</span> Rangoli</a></li>
+<li><a class="text-[#221d10] hover:text-primary transition-colors text-xs flex items-center gap-2 font-semibold" href="#"><span class="material-symbols-outlined text-sm">brush</span> Crafts</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Past Highlights Tab Button -->
+<button class="text-slate-500 hover:text-primary font-medium pb-4 transition-all border-b-2 border-transparent whitespace-nowrap" id="tab-past-btn" onclick="switchTab('past-highlights')">Past Highlights</button><button class="text-primary font-bold border-b-2 border-primary pb-4 transition-all whitespace-nowrap" id="tab-upcoming-comp-btn" onclick="switchTab('upcoming-competitions')">Upcoming Competitions</button>
+</div>
+<div class="flex items-center gap-2 bg-[#e8d5b8] p-1 rounded-lg mb-4">
+<button class="p-1.5 rounded bg-primary text-white shadow-sm">
+<span class="material-symbols-outlined text-xl leading-none">grid_view</span>
+</button>
+<button class="p-1.5 rounded text-[#221d10]/60 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-xl leading-none">view_list</span>
+</button>
+</div>
+</div>
+<!-- Upcoming Competitions Section Content -->
+<div class="tab-content mb-24" id="upcoming-competitions-content">
+<h2 class="text-2xl font-extrabold text-[#221d10] mb-8 flex items-center gap-2"><span class="material-symbols-outlined text-primary">campaign</span> Upcoming Competitions</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+<!-- Debate Competition -->
+<div class="group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-xl bg-[#fcecd1] flex flex-col">
+<div class="h-64 overflow-hidden relative">
+<img alt="The Great Inter-College Debate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlD3fhF-FHR4ROEy1MMgXMHkR_NwHYsdkVCGFFtaei-8N75QLtcRlfTpLroA4N0zDC3et2G0g2wGakR3CFULiTTHg_luUD5FEUQfEoq-08EyoUw9TMLmUD51FfIpNx58FKqo8bzy_RApVwl7nZRerw3mtWthb-NyalvuszsX3e9xE63bJmzqIkWNymAD9waaptuVmqk7lUJiiJ9Zp5at1bp4IwQgeJeE9ndXNjEPqNlXEaSBq6cycpUDk0LLj-nJGa7hkQfSHCdmSe"/>
+<div class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-xs font-bold shadow-lg">OCT 15</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Literary Art</span>
+<span class="text-xs font-bold text-red-600 bg-red-100 px-2 py-0.5 rounded-full">Registering</span>
+</div>
+<h3 class="text-xl font-bold mb-3">The Great Inter-College Debate</h3>
+<p class="text-sm text-[#221d10]/70 italic mb-6">"An intellectual battlefield where words shape the future and arguments spark change."</p>
+<div class="mt-auto flex items-center justify-between border-t border-[#221d10]/10 pt-4">
+<div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
+<span class="material-symbols-outlined text-sm">location_on</span> Main Auditorium
+</div>
+<button class="px-4 py-2 bg-[#221d10] text-white rounded font-bold text-xs hover:bg-primary transition-colors">Apply Now</button>
+</div>
+</div>
+</div>
+<!-- Dance Competition -->
+<div class="group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-xl bg-[#fcecd1] flex flex-col">
+<div class="h-64 overflow-hidden relative">
+<img alt="Sanskriti Fusion Dance Championship" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3NqbI83hnpZcK-9_AtG3tpWp0rlQavW9CxRKzqQDy_i0wzTxvhEnRwcIKZVf6tIkJAjxMayn3tWAq6-NpFstZf6FWqwCH-Jfw1zAtp-RK9GYwNoNoedPVUT8ibjOYhUFvkj2t2ln49Sp0tT8c215CVaQpgdsq7YMqZKWQF_pvM2JOqCxAEBvA8yBsXCXBrHHzl2pF5QBhUF4cQNOdHFV_IT76iTykCwp8YwKsmhCypmjBkWrIHfibegyGsdCdZNMeSDFCCF9_S5Ua"/>
+<div class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-xs font-bold shadow-lg">NOV 02</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Performing Art</span>
+<span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Opening Soon</span>
+</div>
+<h3 class="text-xl font-bold mb-3">Sanskriti Fusion Dance Championship</h3>
+<p class="text-sm text-[#221d10]/70 italic mb-6">"Merging traditional rhythms with contemporary grace in a spectacle of human expression."</p>
+<div class="mt-auto flex items-center justify-between border-t border-[#221d10]/10 pt-4">
+<div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
+<span class="material-symbols-outlined text-sm">location_on</span> Open Theatre
+</div>
+<button class="px-4 py-2 bg-slate-200 text-slate-500 rounded font-bold text-xs cursor-not-allowed">Waitlist</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Club Events Section Content -->
+<div class="tab-content hidden mb-24" id="club-events-content">
+<h2 class="text-2xl font-extrabold text-[#221d10] mb-8 flex items-center gap-2"><span class="material-symbols-outlined text-primary">event_upcoming</span> Club Categories</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Literary -->
+<div class="group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-lg bg-[#fcecd1]">
+<div class="h-48 overflow-hidden">
+<img alt="Debate event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlD3fhF-FHR4ROEy1MMgXMHkR_NwHYsdkVCGFFtaei-8N75QLtcRlfTpLroA4N0zDC3et2G0g2wGakR3CFULiTTHg_luUD5FEUQfEoq-08EyoUw9TMLmUD51FfIpNx58FKqo8bzy_RApVwl7nZRerw3mtWthb-NyalvuszsX3e9xE63bJmzqIkWNymAD9waaptuVmqk7lUJiiJ9Zp5at1bp4IwQgeJeE9ndXNjEPqNlXEaSBq6cycpUDk0LLj-nJGa7hkQfSHCdmSe"/>
+</div>
+<div class="p-5">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Literary</span>
+<h3 class="text-lg font-bold mt-1 mb-2">Debate &amp; Speech</h3>
+<p class="text-sm text-[#221d10]/70 italic">"The art of persuasion through the power of words."</p>
+</div>
+</div>
+<!-- Performing Arts -->
+<div class="group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-lg bg-[#fcecd1]">
+<div class="h-48 overflow-hidden">
+<img alt="Dance event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3NqbI83hnpZcK-9_AtG3tpWp0rlQavW9CxRKzqQDy_i0wzTxvhEnRwcIKZVf6tIkJAjxMayn3tWAq6-NpFstZf6FWqwCH-Jfw1zAtp-RK9GYwNoNoedPVUT8ibjOYhUFvkj2t2ln49Sp0tT8c215CVaQpgdsq7YMqZKWQF_pvM2JOqCxAEBvA8yBsXCXBrHHzl2pF5QBhUF4cQNOdHFV_IT76iTykCwp8YwKsmhCypmjBkWrIHfibegyGsdCdZNMeSDFCCF9_S5Ua"/>
+</div>
+<div class="p-5">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Performing Arts</span>
+<h3 class="text-lg font-bold mt-1 mb-2">Dance &amp; Drama</h3>
+<p class="text-sm text-[#221d10]/70 italic">"A rhythmic expression of the soul through art."</p>
+</div>
+</div>
+<!-- Creative Arts -->
+<div class="group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-lg bg-[#fcecd1]">
+<div class="h-48 overflow-hidden">
+<img alt="Rangoli event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqw9NhT7bcVgaACmCcNs7cbq0s0ffuNxihpa69Rw4TVBDWEIRayNgTAVrixn7xmPFalii67pqYIkWuOs1R8q4BP5lOr_qJgTfEhkbHaYDb9UbKKISrSGykiuRhvQqGgOKMOVdQ4c7xTojpUaRmrk-Lsld6cIJLiSooBTXn49tYY57DiTrjBaGRT2RZAfeR_AAe-i0PwxokOlmR9S_LjQKlTproMLS6Eh4k8ZYQEma1LWq84pq2xA2fJpsN_GXdGAFXC8iHtYiduvDK"/>
+</div>
+<div class="p-5">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Creative Arts</span>
+<h3 class="text-lg font-bold mt-1 mb-2">Rangoli &amp; Design</h3>
+<p class="text-sm text-[#221d10]/70 italic">"Creating vibrant patterns of tradition and color."</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Past Highlights Section Content -->
+<div class="tab-content hidden mb-24" id="past-highlights-content">
+<div class="mb-12">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-primary/20">Hall of Fame</span>
+<h2 class="text-3xl md:text-4xl font-extrabold text-[#221d10] mt-4">Past Highlights &amp; Winners</h2>
+<p class="text-slate-600 max-w-2xl mt-2">Recognizing the exceptional talent and creativity showcased in our previous seasons.</p>
+</div>
+<!-- Winners Showcase Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Winner Profile 1 -->
+<div class="reveal-card group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-lg bg-[#fcecd1] p-5 flex flex-col items-center text-center">
+<div class="h-32 w-32 rounded-full overflow-hidden mb-4 border-2 border-primary/30 p-1">
+<img alt="Winner: Aryan Sharma" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzGYZuS7gK-1IXkW4vcqZYwg17xHXen8FoCSxX7UoTCVAipdfr-kWDMVIjPqZ96JiAHmtam3VQPxRCndXGrPFtt3e8IYGJVCS0CUOXPR74P9idVPBBykyjFn81iZKLtQKG_3IKUAccOdcoD9Qs-L75JtAv0O8ZOBPsa9v5LdPWhdpQkna3PdMytaJiafwEf6eo40yjXO3glG7xcAdqOrbVz-MH0yogT2yGyQV65ORdVR48SYTZ64FpZtYTvFEJ-7bMNx8iD4A4ihU0"/>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Winner: Dance</span>
+<h3 class="text-lg font-bold text-slate-900">Aryan Sharma</h3>
+<div class="mt-3 space-y-1">
+<p class="text-xs font-semibold text-slate-600">Roll No: 2021CS1045</p>
+<p class="text-xs font-bold text-primary/80">Dept: CSE</p>
+</div>
+<div class="mt-4 pt-4 border-t border-black/5 w-full">
+<p class="text-xs italic text-[#221d10]/70">"A mesmerizing performance that redefined classical fusion."</p>
+</div>
+</div>
+<!-- Winner Profile 2 -->
+<div class="reveal-card group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-lg bg-[#fcecd1] p-5 flex flex-col items-center text-center" style="transition-delay: 100ms;">
+<div class="h-32 w-32 rounded-full overflow-hidden mb-4 border-2 border-primary/30 p-1">
+<img alt="Winner: Priya Patel" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy_LX1X7kY1WhmikUVtCHIsk7ITMNe8BOVgENKIu_JoFwZg0RiRSPjQji5282pDrsQ0pSDYDYkpsrbpr5XiRLhA0iWmnx0U-2meS5POEtKK0ENw-nGyh6bavmlwi1yhLTku_k9bZ3caIpbixRp_1hi6BAWTX5YKcFQPjFRvt0SbOlQXBBGq_tdI36uHWZ3q1wQAtIYRkqTxTY_as0D8Sh9BhArYnd3UXAlyv6r5YDkg7HIZ6VhG2tiAfmiVTRWyLXkC_tUyYzDyuJH"/>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Winner: Debate</span>
+<h3 class="text-lg font-bold text-slate-900">Priya Patel</h3>
+<div class="mt-3 space-y-1">
+<p class="text-xs font-semibold text-slate-600">Roll No: 2022AD2012</p>
+<p class="text-xs font-bold text-primary/80">Dept: AI&amp;DS</p>
+</div>
+<div class="mt-4 pt-4 border-t border-black/5 w-full">
+<p class="text-xs italic text-[#221d10]/70">"Articulated complex socio-economic issues with rare brilliance."</p>
+</div>
+</div>
+<!-- Winner Profile 3 -->
+<div class="reveal-card group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-lg bg-[#fcecd1] p-5 flex flex-col items-center text-center" style="transition-delay: 200ms;">
+<div class="h-32 w-32 rounded-full overflow-hidden mb-4 border-2 border-primary/30 p-1">
+<img alt="Winner: Rohan Gupta" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA776SLMbizF98UkTB0j8O4zSpU1BTnoFLWIpD5o_12gRoUuirnLFz_aAN6X_uxzJjTKu3HBPjn9kRRRcau4HhcMncKES85kDLuPBUUVFOcplEBbxAgdBFg_mb_U-Jkk973OGM-OFeN-ADMmDhmANRmoYJK7YIoqEvCC0jg8uSSdMj73eKMFGSfpadq91vitpjLkqwNRneKdlcs0wfdaHjVIzaN3eErgDsQPIKPqLZhrGUJpX-L2dFs9bYAToVTseoUxiyDwdAVMfPu"/>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Winner: Music</span>
+<h3 class="text-lg font-bold text-slate-900">Rohan Gupta</h3>
+<div class="mt-3 space-y-1">
+<p class="text-xs font-semibold text-slate-600">Roll No: 2021EC4008</p>
+<p class="text-xs font-bold text-primary/80">Dept: ECE</p>
+</div>
+<div class="mt-4 pt-4 border-t border-black/5 w-full">
+<p class="text-xs italic text-[#221d10]/70">"An soulful sitar recital that resonated throughout the auditorium."</p>
+</div>
+</div>
+<!-- Winner Profile 4 -->
+<div class="reveal-card group rounded-xl overflow-hidden border-2 border-[#221d10] hover:border-primary transition-all hover:shadow-lg bg-[#fcecd1] p-5 flex flex-col items-center text-center" style="transition-delay: 300ms;">
+<div class="h-32 w-32 rounded-full overflow-hidden mb-4 border-2 border-primary/30 p-1">
+<img alt="Winner: Ananya Iyer" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATKcfwu1QuUpNb8QhW7m1h5kvJXo_zUiAC2r5PThVCUJnYfYiQuuTXIWUZMVv_zzx03bG3ESu3FJmmn6lTsiq0VUdUZ2Qg-t6MgBhiqx5nBEgjNhlxTEvmeY9j5Xqmj9-9sS-2AVQl8U_N8pOb1hE5xjtP8Znr-AS9IVVsokeQXIJJQ3DMheCYmPpXvlfHxhoRQz1xS-9INqg_b4uipowPxwjsbNTvi0HvvFJZiEanRbd3Ccm2HBIjvBv46n2HfC0ZtDZ7MUv9iA0I"/>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Winner: Rangoli</span>
+<h3 class="text-lg font-bold text-slate-900">Ananya Iyer</h3>
+<div class="mt-3 space-y-1">
+<p class="text-xs font-semibold text-slate-600">Roll No: 2023IT1055</p>
+<p class="text-xs font-bold text-primary/80">Dept: IT</p>
+</div>
+<div class="mt-4 pt-4 border-t border-black/5 w-full">
+<p class="text-xs italic text-[#221d10]/70">"Complex geometric patterns woven into a tapestry of tradition."</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="w-full bg-[#f6dfba] py-10 px-4 border-t border-primary/10">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-extrabold text-slate-900 uppercase tracking-tighter">Sanskriti Forum</span>
+</div>
+<p class="text-sm space-y-2 text-slate-600">Preserving and promoting the rich cultural tapestry of India for the digital generation.</p>
+</div>
+<div>
+<h4 class="font-extrabold text-slate-900 uppercase tracking-tighter">Quick Links</h4>
+<ul class="text-sm space-y-2 text-slate-600">
+<li><a class="hover:text-primary transition-colors" href="#">Upcoming Festivals</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Gallery Archives</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Leaderboard</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-extrabold text-slate-900 uppercase tracking-tighter">Participation</h4>
+<ul class="text-sm space-y-2 text-slate-600">
+<li><a class="hover:text-primary transition-colors" href="#">Become a Volunteer</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Sponsorships</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Rules &amp; FAQ</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-extrabold text-slate-900 uppercase tracking-tighter">Contact Us</h4>
+<ul class="text-sm space-y-2 text-slate-600">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span> contact@sanskritiforum.org</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">call</span> +91 11 2345 6789</li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-10 pt-6 border-t border-slate-200 dark:border-primary/5 text-center text-xs text-slate-400">
+            © 2024 The Sanskriti Forum. All rights reserved.
+        </div>
+</footer>
+</div>
+<script>
+    // Tab switching logic
+    function switchTab(tabName) {
+        const upcomingCompContent = document.getElementById('upcoming-competitions-content');
+        const clubEventsContent = document.getElementById('club-events-content');
+        const pastHighlightsContent = document.getElementById('past-highlights-content');
+        
+        const upcomingCompBtn = document.getElementById('tab-upcoming-comp-btn');
+        const clubBtn = document.getElementById('tab-club-btn');
+        const pastBtn = document.getElementById('tab-past-btn');
+
+        // Reset all buttons
+        const allBtns = [upcomingCompBtn, clubBtn, pastBtn];
+        allBtns.forEach(btn => {
+            btn.classList.add('text-slate-500', 'font-medium', 'border-transparent');
+            btn.classList.remove('text-primary', 'font-bold', 'border-primary');
+        });
+
+        // Hide all content
+        const allContent = [upcomingCompContent, clubEventsContent, pastHighlightsContent];
+        allContent.forEach(content => content.classList.add('hidden'));
+
+        if (tabName === 'upcoming-competitions') {
+            upcomingCompBtn.classList.add('text-primary', 'font-bold', 'border-primary');
+            upcomingCompBtn.classList.remove('text-slate-500', 'font-medium', 'border-transparent');
+            upcomingCompContent.classList.remove('hidden');
+        } else if (tabName === 'club-events') {
+            clubBtn.classList.add('text-primary', 'font-bold', 'border-primary');
+            clubBtn.classList.remove('text-slate-500', 'font-medium', 'border-transparent');
+            clubEventsContent.classList.remove('hidden');
+        } else if (tabName === 'past-highlights') {
+            pastBtn.classList.add('text-primary', 'font-bold', 'border-primary');
+            pastBtn.classList.remove('text-slate-500', 'font-medium', 'border-transparent');
+            pastHighlightsContent.classList.remove('hidden');
+            
+            // Trigger reveal animations
+            document.querySelectorAll('#past-highlights-content .reveal-card').forEach(card => {
+                revealObserver.observe(card);
+            });
+        }
+    }
+
+    // Intersection Observer for scroll reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-card').forEach(card => {
+        revealObserver.observe(card);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#' || !targetId.startsWith('#')) return;
+            
+            e.preventDefault();
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+</body></html>
